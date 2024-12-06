@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Info</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Section -->
+      <div class="left-section">
+        <div>
+          <form method="post" action="/" class="search-bar">
+            {% csrf_token %}
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search for places ..."
+            />
+            <button type="submit"  class="search-button">
+              <img src="{% static 'assets/search.svg' %}" alt="search" />
+            </button>
+          </form>
+          <!-- Display Error Message -->
+          {% if error %}
+          <div class="error-message">{{ error }}</div>
+          {% endif %}
+          <p class="date">Last updated: {{ current.last_updated }}</p>
+        </div>
+        <div class="weather-info">
+          <div class="icon">
+            <img src="{{ condition.icon }}" alt="Weather Icon" />
+          </div>
+          <div class="temp">
+          <h1 class="temperature">
+            {% if converter == '°C' %}
+                {{ current.temp_c }}°C
+            {% else %}
+                {{ current.temp_f }}°F
+            {% endif %}
+          </h1>
+          <form method="post" action="/converttemp" class="radio-button" id="temperature-form">
+            {% csrf_token %}
+            <label for="°C"><input type="radio" name="converter" id="°C" value="°C" onclick="submitForm()" {% if converter == '°C' %}checked{% endif %} ><b>°C</b></label>
+            <label for="°F"><input type="radio" name="converter" id="°F" value="°F" onclick="submitForm()" {% if converter == '°F' %}checked{% endif %} ><b>°F</b></label>
+          </form>
+        </div>
+          <p class="day-time">{{ day }}, {{time}}</p>
+          <p class="condition">{{ condition.text }}</p>
+          <p class="rain-chance">Rain - {{ rain }} %</p>
+          <p class="location">
+            {{ location.name }}, {{ location.region }}, {{ location.country }}
+          </p>
+        </div>
+      </div>
+      <!-- Right Section -->
+      <div class="right-section">
+        <div class="week">
+          <button class="tab active">Today</button>
+          <!-- <button class="tab">Week</button> -->
+        </div>
+        <div class="forecast">
+          <div class="day">
+            <p>{{ day }}</p>
+            <img src="{{ forecast_condition.icon }}" alt="Weather Icon" />
+            <p class="condition">{{ forecast_condition.text }}</p>
+            <p>
+              {% if converter == '°C' %}
+                {{ forecasteday.maxtemp_c }}°C - {{ forecasteday.mintemp_c }}°C
+              {% else %}
+                {{ forecasteday.maxtemp_f }}°F - {{ forecasteday.mintemp_f }}°F
+              {% endif %}
+            </p>
+          </div>
+          <div class="day">
+            <p>{{ next_day }}</p>
+            <img src="{{ nextday_condition.icon }}" alt="Weather Icon" />
+            <p class="condition">{{ nextday_condition.text }}</p>
+            <p>
+              {% if converter == '°C' %}
+                {{ next_day_forecast.maxtemp_c }}°C - {{next_day_forecast.mintemp_c }}°C
+              {% else %}
+                {{ next_day_forecast.maxtemp_f }}°F - {{next_day_forecast.mintemp_f }}°F
+              {% endif %}
+            </p>
+          </div>
+          <!-- Add more days as needed -->
+        </div>
+        <div class="highlights">
+          <h2>Today's Highlights</h2>
+          <div class="highlight">
+            <p>UV Index</p>
+            <div class="value">{{ current.uv }}</div>
+          </div>
+          <div class="highlight">
+            <p>Wind Status</p>
+            <div class="value">{{ current.wind_kph}} kp/h</div>
+          </div>
+          <div class="highlight">
+            <p>Sunrise & Sunset</p>
+            <div class="value">{{ astro.sunrise }} / {{ astro.sunset }}</div>
+          </div>
+          <div class="highlight">
+            <p>Humidity</p>
+            <div class="value">{{ current.humidity }}%</div>
+          </div>
+          <div class="highlight">
+            <p>Visibility</p>
+            <div class="value">{{ current.vis_km }} km</div>
+          </div>
+          <div class="highlight">
+            <p>Air Quality</p>
+            <div class="value">{{ airquality }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p><b>Developer Aditya Gavandi</b></p>
+      <div class="links">
+        <a href="https://github.com/adityagavandi61">GitHub</a>
+        <a href="https://www.linkedin.com/in/adityagavandi/">LinkedIn</a>
+      </div> 
+    </footer>
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>
