@@ -22,6 +22,10 @@ A responsive weather website built using modern web technologies that allows use
   - [Weather API](https://www.weatherapi.com/) for fetching weather data
 
 ## Screenshots 📸
+Desktop View & Tablet View <br />
+![Screenshot 2024-12-06 124739](https://github.com/user-attachments/assets/92fde2d6-773b-4b99-a1d4-2b713e7bd4a0)<br />
+Mobile View<br />
+![Screenshot 2024-12-06 125153](https://github.com/user-attachments/assets/dfa0e2d9-0df0-4d1f-a1af-d41c5bcd75d6)<br />
 
 ## Contributing 🤝
 Contributions are welcome! Feel free to open issues or submit pull requests to improve this project.
