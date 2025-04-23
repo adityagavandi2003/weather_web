@@ -16,7 +16,7 @@ A responsive weather website built using modern web technologies that allows use
 - **Frontend:**
   - HTML, CSS, JavaScript
 
-- **Frontend:**
+- **Backend:**
   - Django(Python)
 - **API:**
   - [Weather API](https://www.weatherapi.com/) for fetching weather data
